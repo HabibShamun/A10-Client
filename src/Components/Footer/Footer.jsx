@@ -10,13 +10,17 @@ const Footer = () => {
   {/* Branding Section */}
   <aside className="flex items-center gap-4">
     <img
-      className="w-25 sm:w-30"
+      className="w-25 sm:w-30 hover:animate-spin"
       src="https://i.postimg.cc/y6RVqbXm/logo-removebg-preview.png"
       alt="EcoTrack Logo"
     />
     <div>
       <h2 className="text-lg font-semibold">EcoTrack</h2>
-      <p className="text-sm font-semibold">Sustainable living, one step at a time.</p>
+      <p className="text-sm font-semibold">Sustainable living, one step at a time.
+      </p>
+      <p className="mt-1 text-xs sm:text-sm font-semibold text-white/80 text-center sm:text-right">
+  Accessible for everyone. Privacy-Friendly by Design.
+</p>
     </div>
   </aside>
 
@@ -33,13 +37,14 @@ const Footer = () => {
   <nav>
     <h6 className="footer-title text-lg mb-2 font-semibold">Social</h6>
     <div className="flex gap-4 text-xl text-white">
-      <a href="#" className="hover:text-white transition-colors duration-200"><FaFacebook /></a>
-      <a href="#" className="hover:text-white transition-colors duration-200"><AiFillInstagram /></a>
+      <a href="https://www.facebook.com/" className="hover:text-white transition-colors duration-200"><FaFacebook /></a>
+      <a href="https://www.instagram.com/" className="hover:text-white transition-colors duration-200"><AiFillInstagram /></a>
       <a href="#" className="hover:text-white transition-colors duration-200"><FaSquareXTwitter /></a>
     </div>
-    <p className="mt-4 text-sm font-semibold text-white text-center sm:text-right">
+    <p className="mt-3 text-sm font-semibold text-white text-center sm:text-right">
       &copy; 2025 EcoTrack. All rights reserved.
     </p>
+    
   </nav>
 </footer>
 
