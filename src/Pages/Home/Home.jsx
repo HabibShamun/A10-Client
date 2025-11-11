@@ -22,14 +22,27 @@ const Home = () => {
             setActiveChallenges(data.data)
         })
     },[axios])
+
+    const [recentTips,setRecentTips]=useState([])
+    useEffect(()=>{
+        axios('/tips?limit=5').then(data=>{
+            setRecentTips(data.data)
+        })
+    },[axios])
+      const [events,setEvents]=useState([])
+    useEffect(()=>{
+        axios('/events').then(data=>{
+            setRecentTips(data.data)
+        })
+    },[axios])
     return (
         <div>
            
             <HeroCarousel featured={featured}></HeroCarousel>
             <LiveStatistics></LiveStatistics>
             <ActiveChallenges ActiveChallenges={activeChallenges}></ActiveChallenges>
-            <RecentTips></RecentTips>
-            <UpcomingEvents></UpcomingEvents>
+            <RecentTips recentTips={recentTips}></RecentTips>
+            <UpcomingEvents events={events}></UpcomingEvents>
             <GoGreen></GoGreen>
             <HowItWorks></HowItWorks>
         </div>

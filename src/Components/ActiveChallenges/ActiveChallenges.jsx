@@ -1,10 +1,12 @@
 import React from 'react';
 
 const ActiveChallenges = ({ ActiveChallenges }) => {
-  console.log(ActiveChallenges);
+
 
   return (
-    <div className="px-4 py-8">
+    <div>
+           <h1 className='text-center mt-10 mb-4 text-primary text-3xl font-bold'>Our Active Challenges</h1>
+        <div className="px-4 py-8">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
         {ActiveChallenges.map((challenge) => (
           <div key={challenge._id} className="card bg-base-100 w-full max-w-sm shadow-md flex flex-col justify-between">
@@ -27,6 +29,8 @@ const ActiveChallenges = ({ ActiveChallenges }) => {
         ))}
       </div>
     </div>
+    </div>
+    
   );
 };
 

@@ -2,9 +2,11 @@ import React from 'react';
 
 const LiveStatistics = () => {
     return (
-        <div className='flex flex-wrap justify-center items-center gap-6 p-5'>
+        <div>
+             <h1 className='text-center mt-10 mb-4 text-primary text-3xl font-bold'>Live Statistics</h1>
+             <div className='flex flex-wrap justify-center items-center gap-6 p-5'>
        
-
+           
             <div className="card bg-base-100 w-96 shadow-xl">
   <div className="card-body items-center text-center">
     <h2 className=" text-xl card-title text-secondary">Community Members</h2>
@@ -32,6 +34,8 @@ const LiveStatistics = () => {
 
 
         </div>
+        </div>
+       
 
         
     );
