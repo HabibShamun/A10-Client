@@ -32,7 +32,7 @@ const Home = () => {
       const [events,setEvents]=useState([])
     useEffect(()=>{
         axios('/events').then(data=>{
-            setRecentTips(data.data)
+            setEvents(data.data)
         })
     },[axios])
     return (

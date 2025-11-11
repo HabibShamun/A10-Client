@@ -66,7 +66,7 @@ const links = (
     <Link to={'/'}>
       <div className='flex items-center '>
                 <img className='w-25 hover:animate-spin' src={`https://i.postimg.cc/y6RVqbXm/logo-removebg-preview.png`} alt="" />
-                <h1 className='text-2xl font-bold'>Eco<span className='text-primary font-semibold'>Track</span> </h1>
+                <h1 className='hidden sm:block text-2xl font-bold'>Eco<span className='text-primary font-semibold'>Track</span> </h1>
             </div>
     </Link>
    
@@ -76,8 +76,9 @@ const links = (
   {links}
     </ul>
   </div>
-  <div className="navbar-end">
-    <a className="btn btn-primary">Log In</a>
+  <div className="navbar-end flex gap-2">
+    <a ><Link className="btn btn-primary" to={'/login'}>Log In</Link></a>
+    <a ><Link className="btn" to={'/register'}>Register</Link></a>
   </div>
 </div>
         </div>

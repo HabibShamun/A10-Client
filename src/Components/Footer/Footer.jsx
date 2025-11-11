@@ -8,7 +8,7 @@ const Footer = () => {
   return (
     <footer className="footer sm:footer-horizontal bg-primary text-white px-6 py-10 font-semibold">
   {/* Branding Section */}
-  <aside className="flex items-center gap-4">
+  <aside className="flex flex-wrap  items-center gap-4">
     <img
       className="w-25 sm:w-30 hover:animate-spin"
       src="https://i.postimg.cc/y6RVqbXm/logo-removebg-preview.png"

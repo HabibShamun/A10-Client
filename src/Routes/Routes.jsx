@@ -5,6 +5,8 @@ import Home from "../Pages/Home/Home";
 
 import MyActivities from "../Pages/MyActivities/MyActivities";
 import Challenges from "../Pages/Challenges/Challenges";
+import Login from "../Pages/Login/Login";
+import Regsiter from "../Pages/Register/Regsiter";
 
 const Routes=createBrowserRouter([{
         path:'/',
@@ -19,7 +21,17 @@ const Routes=createBrowserRouter([{
         },{
             path: 'myactivities',
             Component: MyActivities
-        }]
-}])
+        },
+        {
+            path: '/login',
+            Component: Login
+        },
+        {
+            path:'/register',
+            Component: Regsiter
+        }
+    ]
+}
+])
 
 export default Routes;
