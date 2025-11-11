@@ -23,6 +23,7 @@ const Footer = () => {
 </p>
     </div>
   </aside>
+  
 
   {/* Company Section */}
   <nav>
