@@ -7,8 +7,13 @@ import MyActivities from "../Pages/MyActivities/MyActivities";
 import Challenges from "../Pages/Challenges/Challenges";
 import Login from "../Pages/Login/Login";
 import Regsiter from "../Pages/Register/Regsiter";
+import PrivateRoute from "./PrivateRoute";
+import ChallengeDetails from "../Pages/ChallengeDetails/ChallengeDetails";
+import useAxios from "../Hooks/useAxios";
 
-const Routes=createBrowserRouter([{
+const Routes=createBrowserRouter(
+
+    [{
         path:'/',
         Component: PublicLayout,
         children: [{
@@ -20,7 +25,9 @@ const Routes=createBrowserRouter([{
             Component: Challenges
         },{
             path: 'myactivities',
-            Component: MyActivities
+            element: <PrivateRoute>
+                <MyActivities></MyActivities>
+            </PrivateRoute>
         },
         {
             path: '/login',
@@ -29,6 +36,12 @@ const Routes=createBrowserRouter([{
         {
             path:'/register',
             Component: Regsiter
+        }, 
+        {
+            path:'/challengedetails/:id',
+            // loader:({params})=>axios(`/challenges/${params.id}`),
+            loader: ({params})=>fetch(`http://localhost:5000/challenges/${params.id}`),
+            element: <PrivateRoute> <ChallengeDetails></ChallengeDetails> </PrivateRoute>
         }
     ]
 }

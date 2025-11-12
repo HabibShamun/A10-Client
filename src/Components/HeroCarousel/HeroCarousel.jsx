@@ -3,6 +3,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Autoplay, Pagination } from 'swiper/modules';
+import { Link } from 'react-router';
 
 const HeroCarousel = ({ featured }) => {
   return (
@@ -37,12 +38,12 @@ const HeroCarousel = ({ featured }) => {
                     {item.description}
                   </p>
                   <a href={`/challenges/${item._id}`} aria-label={`Join ${item.title} challenge`}>
-                    <button
+                    <Link to={`/challengedetails/${item._id}`}
                       className="px-6 py-3 rounded-md font-semibold transition text-white"
                       style={{ backgroundColor: '#00A97E' }}
                     >
-                      Join now
-                    </button>
+                      View
+                    </Link>
                   </a>
                 </div>
               </div>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 const AllChallenges = ({ AllChallenges }) => {
 
@@ -22,7 +23,7 @@ const AllChallenges = ({ AllChallenges }) => {
               <p className="text-sm text-gray-500">{challenge.category}</p>
               <p className="text-sm">{challenge.description}</p>
               <div className="card-actions mt-4">
-                <button className="btn btn-primary">Join Now</button>
+                <Link to={`/challengedetails/${challenge._id}`} className="btn btn-primary">View</Link>
               </div>
             </div>
           </div>
