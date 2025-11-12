@@ -9,7 +9,8 @@ import Login from "../Pages/Login/Login";
 import Regsiter from "../Pages/Register/Regsiter";
 import PrivateRoute from "./PrivateRoute";
 import ChallengeDetails from "../Pages/ChallengeDetails/ChallengeDetails";
-import useAxios from "../Hooks/useAxios";
+
+import Profile from "../Pages/Profile/Profile";
 
 const Routes=createBrowserRouter(
 
@@ -42,6 +43,12 @@ const Routes=createBrowserRouter(
             // loader:({params})=>axios(`/challenges/${params.id}`),
             loader: ({params})=>fetch(`http://localhost:5000/challenges/${params.id}`),
             element: <PrivateRoute> <ChallengeDetails></ChallengeDetails> </PrivateRoute>
+        },
+        {
+            path: '/profile',
+            element: <PrivateRoute> 
+                <Profile></Profile>
+            </PrivateRoute>
         }
     ]
 }

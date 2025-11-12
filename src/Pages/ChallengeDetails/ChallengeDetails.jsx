@@ -50,7 +50,7 @@ const ChallengeDetails = () => {
     if (user?.email) {
       fetchJoinStatus();
     }
-  }, [user?.email, challengeId]);
+  }, [user?.email, challengeId,axios]);
 
   const handleJoinChallenge = async () => {
     try {
