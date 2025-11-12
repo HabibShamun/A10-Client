@@ -12,6 +12,8 @@ import ChallengeDetails from "../Pages/ChallengeDetails/ChallengeDetails";
 
 import Profile from "../Pages/Profile/Profile";
 
+import Update from "../Pages/Update/Update";
+
 const Routes=createBrowserRouter(
 
     [{
@@ -48,6 +50,11 @@ const Routes=createBrowserRouter(
             path: '/profile',
             element: <PrivateRoute> 
                 <Profile></Profile>
+            </PrivateRoute>
+        },{
+            path: '/update',
+            element: <PrivateRoute>
+                <Update></Update>
             </PrivateRoute>
         }
     ]

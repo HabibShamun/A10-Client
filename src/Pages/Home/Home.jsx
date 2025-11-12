@@ -9,44 +9,58 @@ import UpcomingEvents from '../../Components/UpcomingEvents/UpcomingEvents';
 import HowItWorks from '../../Components/HowItWorks/HowItWorks';
 
 const Home = () => {
-    const axios=useAxios()
-    const [featured,setFeatured]=useState([])
-    useEffect(()=>{
-        axios('/challenges?limit=3').then(data=>{
-            setFeatured(data.data)
-        })
-    },[axios])
-    const [activeChallenges,setActiveChallenges]=useState([])
-    useEffect(()=>{
-        axios('/challenges?limit=6&status=running').then(data=>{
-            setActiveChallenges(data.data)
-        })
-    },[axios])
+  const axios = useAxios();
 
-    const [recentTips,setRecentTips]=useState([])
-    useEffect(()=>{
-        axios('/tips?limit=5').then(data=>{
-            setRecentTips(data.data)
-        })
-    },[axios])
-      const [events,setEvents]=useState([])
-    useEffect(()=>{
-        axios('/events').then(data=>{
-            setEvents(data.data)
-        })
-    },[axios])
+  const [featured, setFeatured] = useState([]);
+  const [activeChallenges, setActiveChallenges] = useState([]);
+  const [recentTips, setRecentTips] = useState([]);
+  const [events, setEvents] = useState([]);
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchAll = async () => {
+      try {
+        const [featuredRes, activeRes, tipsRes, eventsRes] = await Promise.all([
+          axios('/challenges?limit=3'),
+          axios('/challenges?limit=6&status=running'),
+          axios('/tips?limit=5'),
+          axios('/events'),
+        ]);
+
+        setFeatured(featuredRes.data);
+        setActiveChallenges(activeRes.data);
+        setRecentTips(tipsRes.data);
+        setEvents(eventsRes.data);
+      } catch (error) {
+        console.error('Error loading homepage data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAll();
+  }, [axios]);
+
+  if (loading) {
     return (
-        <div>
-           
-            <HeroCarousel featured={featured}></HeroCarousel>
-            <LiveStatistics></LiveStatistics>
-            <ActiveChallenges ActiveChallenges={activeChallenges}></ActiveChallenges>
-            <RecentTips recentTips={recentTips}></RecentTips>
-            <UpcomingEvents events={events}></UpcomingEvents>
-            <GoGreen></GoGreen>
-            <HowItWorks></HowItWorks>
-        </div>
+      <div className="text-center py-20 text-lg font-medium text-gray-500">
+        Loading homepage content...
+      </div>
     );
+  }
+
+  return (
+    <div>
+      <HeroCarousel featured={featured} />
+      <LiveStatistics />
+      <ActiveChallenges ActiveChallenges={activeChallenges} />
+      <RecentTips recentTips={recentTips} />
+      <UpcomingEvents events={events} />
+      <GoGreen />
+      <HowItWorks />
+    </div>
+  );
 };
 
 export default Home;

@@ -4,7 +4,9 @@ import useAuth from '../../Hooks/useAuth';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import useAxios from '../../Hooks/useAxios';
 const Login = () => {
+  const axios=useAxios()
    const { setUser,signInUser,signInGoogle}=useAuth()
     const [nameError, setError] = useState("");
     const [showPassword, setShowPassword] = useState(true);
@@ -12,17 +14,17 @@ const Login = () => {
   const location=useLocation()
   const handleSignInGoogle=()=>{
         signInGoogle().then(result=>{
-                       const newUser={
+             const newUser={
                 name:result.user.displayName,
                 email:result.user.email,
                 image:result.user.photoURL
             }
-            setUser(newUser)
-            navigate(location.state? location.state:'/')
-        }).catch(e=>{
-          setError(e.message);
-                      toast.error(e.message);
-        }) 
+            axios.post(`/users`,newUser).then(data=>{
+                // console.log('data after user save',data)
+                 setUser(newUser)
+                 navigate('/')
+            })
+        })
     }
 
     const handleSignIn=(e)=>{

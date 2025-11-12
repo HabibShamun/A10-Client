@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FaUserCircle } from 'react-icons/fa';
 import useAxios from '../../Hooks/useAxios';
 import useAuth from '../../Hooks/useAuth';
+import { Link } from 'react-router';
 
 const Profile = () => {
   const { user, signOutUser } = useAuth();
@@ -43,28 +44,23 @@ const Profile = () => {
         )}
 
         <div className="text-center">
-          <p className="text-lg font-semibold text-gray-800">{dbUser?.name || 'No name available'}</p>
-          <p className="text-sm text-gray-600">{dbUser?.email || user?.email}</p>
+          <p className="text-lg font-semibold text-gray-800">Name: {dbUser?.name || 'No name available'}</p>
+          <p className="text-sm text-gray-600"><span className='font-bold'>Email: </span> {dbUser?.email || user?.email}</p>
         </div>
 
         <button
           onClick={signOutUser}
-          className="mt-4 btn btn-outline btn-error w-full"
+          className="mt-4 btn btn-outline btn-primary w-full"
         >
           Log Out
         </button>
-        <button
-          onClick={signOutUser}
-          className="mt-4 btn btn-outline btn-error w-full"
+        <Link
+          to={'/update'}
+          className="mt-4 btn btn-outline btn-primary w-full"
         >
           Update
-        </button>
-           <button
-          onClick={signOutUser}
-          className="mt-4 btn btn-outline btn-error w-full"
-        >
-          Delete Account
-        </button>
+        </Link>
+        
       </div>
     </div>
 
