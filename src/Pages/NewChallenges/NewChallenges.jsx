@@ -18,6 +18,10 @@ const NewChallenges = () => {
     const duration = form.duration.value.trim();
     const target = form.target.value.trim();
     const imageUrl = form.imageUrl.value.trim();
+    const impactMetric = form.impactMetric.value.trim();
+    const createdBy = form.createdBy.value.trim();
+    const startDate =  'N/A';
+    const endDate = 'N/A';
 
     const titleRegex = /^.{6,}$/;
     const durationRegex = /^\d+$/;
@@ -43,6 +47,11 @@ const NewChallenges = () => {
       duration: parseInt(duration),
       target,
       imageUrl,
+      impactMetric,
+      createdBy,
+      startDate,
+      endDate,
+      participants: 0,
     };
 
     try {
@@ -69,16 +78,28 @@ const NewChallenges = () => {
           <input type="text" name="title" className="input input-bordered" placeholder="Challenge title" />
 
           <label className="label">Category</label>
-          <input type="text" name="category" className="input input-bordered" placeholder="e.g. Environment" />
+          <input type="text" name="category" className="input input-bordered" placeholder="e.g. Energy Conservation" />
 
           <label className="label">Description</label>
           <textarea name="description" className="textarea textarea-bordered" placeholder="Challenge description"></textarea>
 
           <label className="label">Duration (days)</label>
-          <input type="number" name="duration" className="input input-bordered" placeholder="e.g. 30" />
+          <input type="number" name="duration" className="input input-bordered" placeholder="e.g. 5" />
 
           <label className="label">Target / Goal</label>
-          <input type="text" name="target" className="input input-bordered" placeholder="e.g. Plant 10 trees" />
+          <input type="text" name="target" className="input input-bordered" placeholder="e.g. Save energy and water" />
+
+          <label className="label">Impact Metric</label>
+          <input type="text" name="impactMetric" className="input input-bordered" placeholder="e.g. kWh saved" />
+
+          <label className="label">Created By</label>
+          <input type="email" name="createdBy" className="input input-bordered" placeholder="e.g. admin@ecotrack.com" />
+
+          <label className="label">Start Date</label>
+          <input type="date" name="startDate" className="input input-bordered" />
+
+          <label className="label">End Date</label>
+          <input type="date" name="endDate" className="input input-bordered" />
 
           <label className="label">Image URL</label>
           <input type="text" name="imageUrl" className="input input-bordered" placeholder="Image link" />
