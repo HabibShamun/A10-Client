@@ -16,6 +16,7 @@ import Update from "../Pages/Update/Update";
 import NewChallenges from "../Pages/NewChallenges/NewChallenges";
 import ForgotPassword from "../Pages/ForgotPassword/ForgotPassword";
 import Reset from "../Pages/ForgotPassword/Reset";
+import Error from "../Pages/Error/Error";
 
 const Routes=createBrowserRouter(
 
@@ -73,6 +74,10 @@ const Routes=createBrowserRouter(
             Component: Reset
         }
     ]
+},
+{
+    path:"/*",
+    Component:Error
 }
 ])
 
