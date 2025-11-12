@@ -65,7 +65,7 @@ const Login = () => {
                                                  {showPassword ? <FaEye /> : <FaEyeSlash />}
                                              </button>
                                          </div>
-          <div><a className="link link-hover">Forgot password?</a></div>
+          <div><Link to={'/forgot'} className="link link-hover">Forgot password?</Link></div>
           <button className="btn btn-primary mt-4">Sign In</button>
            {
                                     nameError && <p className='text-red-500 font-semibold'>{nameError}</p>

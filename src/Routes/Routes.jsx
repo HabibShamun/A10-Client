@@ -13,6 +13,9 @@ import ChallengeDetails from "../Pages/ChallengeDetails/ChallengeDetails";
 import Profile from "../Pages/Profile/Profile";
 
 import Update from "../Pages/Update/Update";
+import NewChallenges from "../Pages/NewChallenges/NewChallenges";
+import ForgotPassword from "../Pages/ForgotPassword/ForgotPassword";
+import Reset from "../Pages/ForgotPassword/Reset";
 
 const Routes=createBrowserRouter(
 
@@ -56,6 +59,18 @@ const Routes=createBrowserRouter(
             element: <PrivateRoute>
                 <Update></Update>
             </PrivateRoute>
+        },{
+            path:'/createChallenge',
+            element: <PrivateRoute>
+                <NewChallenges></NewChallenges>
+            </PrivateRoute>
+        },
+        {
+            path:'/forgot',
+            Component: ForgotPassword
+        },{
+            path:'/auth/successreset',
+            Component: Reset
         }
     ]
 }

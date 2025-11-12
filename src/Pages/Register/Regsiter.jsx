@@ -97,6 +97,7 @@ const Regsiter = () => {
           <label className="label">PhotoURL</label>
           <input name='photo' type="text" className="input" placeholder="PhotoUrl...." />
           {/* password */}
+          <label className="label">Password</label>
            <div className='relative'>
                                     <input name='password' required type={showPassword ? "password" : "text"} className="input" placeholder="Password" />
                                     <button onClick={handleEye} className="btn absolute top-2 right-5 btn-xs">

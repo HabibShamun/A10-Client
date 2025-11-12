@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Update = () => {
+const Reset = () => {
     return (
         <div>
             
@@ -8,4 +8,4 @@ const Update = () => {
     );
 };
 
-export default Update;
+export default Reset;

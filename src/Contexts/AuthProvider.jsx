@@ -3,7 +3,7 @@ import { AuthContext } from "./AuthContext";
 //npm install -g firebase-tools
 
 import { auth } from "../firebase/firebase.config";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged, sendPasswordResetEmail } from "firebase/auth";
 import { useEffect, useState } from "react";
 
 const googleProvider=new GoogleAuthProvider()
@@ -38,6 +38,9 @@ const AuthProvider = ({children}) => {
     setLoading(true)
     return signOut(auth)
    }
+    const resetPassword=(email)=>{
+    return sendPasswordResetEmail(auth,email);
+   }
 
     const authInfo={
         createUser,
@@ -46,7 +49,9 @@ const AuthProvider = ({children}) => {
         signOutUser,
         user,
         setUser,
-        loading
+        loading,
+        setLoading,
+        resetPassword
     }
     return (
        <AuthContext value={authInfo}>
