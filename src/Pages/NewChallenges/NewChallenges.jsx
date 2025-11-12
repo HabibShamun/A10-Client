@@ -20,8 +20,8 @@ const NewChallenges = () => {
     const imageUrl = form.imageUrl.value.trim();
     const impactMetric = form.impactMetric.value.trim();
     const createdBy = form.createdBy.value.trim();
-    const startDate =  'N/A';
-    const endDate = 'N/A';
+    const startDate = form.startDate.value || 'N/A';
+    const endDate = form.endDate.value || 'N/A';
 
     const titleRegex = /^.{6,}$/;
     const durationRegex = /^\d+$/;
