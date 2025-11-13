@@ -2,7 +2,7 @@ import axios from 'axios';
 import React from 'react';
 
 const axiosInstance=axios.create({
-    baseURL:'https://ecotrack-server-six.vercel.app/'
+    baseURL:'https://ecotrack-server-six.vercel.app'
 })
 
 const useAxios = () => {
