@@ -47,7 +47,7 @@ const Routes=createBrowserRouter(
         {
             path:'/challengedetails/:id',
             // loader:({params})=>axios(`/challenges/${params.id}`),
-            loader: ({params})=>fetch(`http://localhost:5000/challenges/${params.id}`),
+            loader: ({params})=>fetch(`https://ecotrack-server-six.vercel.app/challenges/${params.id}`),
             element: <PrivateRoute> <ChallengeDetails></ChallengeDetails> </PrivateRoute>
         },
         {

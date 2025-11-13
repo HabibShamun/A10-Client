@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import useAuth from '../../Hooks/useAuth';
 import useAxios from '../../Hooks/useAxios';
 import { FaUserCircle } from 'react-icons/fa';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { Link } from 'react-router';
 
 const Update = () => {
@@ -104,6 +105,7 @@ const Update = () => {
             Go Back
           </Link>
       </div>
+          <ToastContainer position="top-center" />
     </div>
   );
 };
