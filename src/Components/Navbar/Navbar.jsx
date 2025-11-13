@@ -37,11 +37,15 @@ const Navbar = () => {
           Challenges
         </NavLink>
       </li>
-      <li>
+      {
+        user && 
+          <li>
         <NavLink to="/myactivities" className={({ isActive }) => isActive && 'text-primary font-semibold'}>
           My Activities
         </NavLink>
       </li>
+      }
+    
        {
         user &&  <li>
         <NavLink to="/profile" className={({ isActive }) => isActive && 'text-primary font-semibold'}>

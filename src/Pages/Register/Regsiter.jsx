@@ -12,67 +12,91 @@ const Regsiter = () => {
     const {setUser,createUser,signInGoogle}=useAuth()
       const [nameError, setError] = useState("");
       const [showPassword, setShowPassword] = useState(true);
-    const handleRegister=(e)=>{
-               e.preventDefault();
-               setError('');
-               const form = e.target;
-               const name = form.name.value.trim();
-               const email = form.email.value.trim();
-               const password = form.password.value;
-               const photo = form.photo.value.trim();
-       
-               const nameRegex = /^.{6,}$/;
-               const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
-       
-               if (!nameRegex.test(name)) {
-                   const msg = 'Name must be at least 6 characters long.';
-                   setError(msg);
-                   toast.error(msg);
-                   return;
-               }
-       
-               if (!passwordRegex.test(password)) {
-                   const msg = 'Password must be at least 6 characters and include both uppercase and lowercase letters.';
-                   setError(msg);
-                   toast.error(msg);
-                   return;
-               }
-        createUser(email,password).then(result=>{
-            // console.log(result.user)
+    const handleRegister = async (e) => {
+  e.preventDefault();
+  setError('');
 
-            const newUser={
-                name:name,
-                email:email,
-                image:photo
-            }
-            axios.post(`/users`,newUser).then(data=>{
-                // console.log('data after user save',data)
-                setUser(newUser)
-                // console.log('navigating')
-                navigate('/')
-            }).catch(err=>{
-                console.log(err)
-            })
+  const form = e.target;
+  const name = form.name.value.trim();
+  const email = form.email.value.trim();
+  const password = form.password.value;
+  const photo = form.photo.value.trim();
 
-        }).catch(err=>{
-            console.log('register create',err)
-        })
+  const nameRegex = /^.{6,}$/;
+  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
+
+  if (!nameRegex.test(name)) {
+    const msg = 'Name must be at least 6 characters long.';
+    setError(msg);
+    toast.error(msg);
+    return;
+  }
+
+  if (!passwordRegex.test(password)) {
+    const msg = 'Password must be at least 6 characters and include both uppercase and lowercase letters.';
+    setError(msg);
+    toast.error(msg);
+    return;
+  }
+
+  try {
+    const result = await createUser(email, password);
+    const newUser = {
+      name,
+      email,
+      image: photo
+    };
+
+
+    try {
+      await axios.get(`/users?email=${email}`);
+ 
+    } catch (err) {
+      if (err.response && err.response.status === 404) {
+     
+        await axios.post('/users', newUser);
+      } else {
+        throw err;
+      }
     }
 
-    const handleSignInGoogle=()=>{
-        signInGoogle().then(result=>{
-             const newUser={
-                name:result.user.displayName,
-                email:result.user.email,
-                image:result.user.photoURL
-            }
-            axios.post(`/users`,newUser).then(data=>{
-                // console.log('data after user save',data)
-                 setUser(newUser)
-                 navigate('/')
-            })
-        })
+    setUser(newUser);
+    navigate('/');
+  } catch (err) {
+    console.error('Registration error:', err);
+    toast.error('Failed to register user');
+  }
+};
+
+
+   const handleSignInGoogle = async () => {
+  try {
+    const result = await signInGoogle();
+    const newUser = {
+      name: result.user.displayName,
+      email: result.user.email,
+      image: result.user.photoURL,
+    };
+
+
+    try {
+      await axios.get(`/users?email=${newUser.email}`);
+    } catch (err) {
+      if (err.response && err.response.status === 404) {
+        await axios.post('/users', newUser);
+      } else {
+        throw err; // Other error
+      }
     }
+
+    setUser(newUser);
+    navigate('/');
+  } catch (error) {
+    console.error('Google registration error:', error);
+    toast.error('Failed to register with Google');
+  }
+};
+
       const handleEye = (e) => {
         e.preventDefault();
         setShowPassword(!showPassword);

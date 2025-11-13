@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+
 import HeroCarousel from '../../Components/HeroCarousel/HeroCarousel';
 import useAxios from '../../Hooks/useAxios';
 import LiveStatistics from '../../Components/LiveStatistics/LiveStatistics';
@@ -15,10 +18,11 @@ const Home = () => {
   const [activeChallenges, setActiveChallenges] = useState([]);
   const [recentTips, setRecentTips] = useState([]);
   const [events, setEvents] = useState([]);
-
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    AOS.init({ duration: 800, once: true });
+
     const fetchAll = async () => {
       try {
         const [featuredRes, activeRes, tipsRes, eventsRes] = await Promise.all([
@@ -52,13 +56,27 @@ const Home = () => {
 
   return (
     <div>
-      <HeroCarousel featured={featured} />
-      <LiveStatistics />
-      <ActiveChallenges ActiveChallenges={activeChallenges} />
-      <RecentTips recentTips={recentTips} />
-      <UpcomingEvents events={events} />
-      <GoGreen />
-      <HowItWorks />
+      <div data-aos="fade-up">
+        <HeroCarousel featured={featured} />
+      </div>
+      <div data-aos="fade-up" data-aos-delay="100">
+        <LiveStatistics />
+      </div>
+      <div data-aos="fade-up" data-aos-delay="200">
+        <ActiveChallenges ActiveChallenges={activeChallenges} />
+      </div>
+      <div data-aos="fade-up" data-aos-delay="300">
+        <RecentTips recentTips={recentTips} />
+      </div>
+      <div data-aos="fade-up" data-aos-delay="400">
+        <UpcomingEvents events={events} />
+      </div>
+      <div data-aos="fade-up" data-aos-delay="500">
+        <GoGreen />
+      </div>
+      <div data-aos="fade-up" data-aos-delay="600">
+        <HowItWorks />
+      </div>
     </div>
   );
 };

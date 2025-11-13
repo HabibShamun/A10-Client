@@ -12,20 +12,36 @@ const Login = () => {
     const [showPassword, setShowPassword] = useState(true);
   const navigate=useNavigate()
   const location=useLocation()
-  const handleSignInGoogle=()=>{
-        signInGoogle().then(result=>{
-             const newUser={
-                name:result.user.displayName,
-                email:result.user.email,
-                image:result.user.photoURL
-            }
-            axios.post(`/users`,newUser).then(data=>{
-                // console.log('data after user save',data)
-                 setUser(newUser)
-                 navigate('/')
-            })
-        })
+  const handleSignInGoogle = async () => {
+  try {
+    const result = await signInGoogle();
+    const newUser = {
+      name: result.user.displayName,
+      email: result.user.email,
+      image: result.user.photoURL,
+    };
+
+
+    try {
+      await axios.get(`/users?email=${newUser.email}`);
+
+    } catch (err) {
+      if (err.response && err.response.status === 404) {
+     
+        await axios.post('/users', newUser);
+      } else {
+        throw err; 
+      }
     }
+
+    setUser(newUser);
+    navigate(location.state?.from || '/');
+  } catch (error) {
+    console.error('Google sign-in error:', error);
+    toast.error('Failed to sign in with Google');
+  }
+};
+
 
     const handleSignIn=(e)=>{
       e.preventDefault()
