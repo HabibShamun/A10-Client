@@ -78,6 +78,7 @@ const Login = () => {
         <p className='font-semibold'>Don't have an account? <Link to={'/register'} className='text-primary'>Register</Link></p>
       </div>
     </div>
+     <ToastContainer position="top-center" />
     </div>
   
 

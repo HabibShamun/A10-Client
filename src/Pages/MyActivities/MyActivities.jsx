@@ -1,31 +1,50 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router'
 import useAuth from '../../Hooks/useAuth';
 import useAxios from '../../Hooks/useAxios';
 
 const MyActivities = () => {
   const { user } = useAuth();
   const axios = useAxios();
-  const [challenges, setChallenges] = useState([]);
+  const [activities, setActivities] = useState([]);
+  const [summary, setSummary] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchJoinedChallenges = async () => {
+    const fetchData = async () => {
       try {
         const userRes = await axios.get(`/users?email=${user.email}`);
         const dbUser = userRes.data;
 
-        const joinedRes = await axios.get(`/userChallenges/joined?userId=${dbUser._id}`);
-        setChallenges(joinedRes.data);
+        const [userChallengesRes, challengeDetailsRes, summaryRes] = await Promise.all([
+          axios.get(`/userChallenges?userId=${dbUser._id}`),
+          axios.get(`/userChallenges/joined?userId=${dbUser._id}`),
+          axios.get(`/userChallenges/summary?userId=${dbUser._id}`)
+        ]);
+
+        const userChallenges = userChallengesRes.data;
+        const challengeDetails = challengeDetailsRes.data;
+
+        const merged = challengeDetails.map((challenge) => {
+          const match = userChallenges.find((uc) => uc.challengeId === challenge._id);
+          return {
+            ...challenge,
+            status: match?.status || 'not started',
+            progress: match?.progress ?? 0,
+          };
+        });
+
+        setActivities(merged);
+        setSummary(summaryRes.data);
       } catch (error) {
-        console.error('Error fetching joined challenges:', error);
+        console.error('Error fetching activities:', error);
       } finally {
         setLoading(false);
       }
     };
 
     if (user?.email) {
-      fetchJoinedChallenges();
+      fetchData();
     }
   }, [user?.email, axios]);
 
@@ -36,11 +55,26 @@ const MyActivities = () => {
   return (
     <div className="max-w-5xl mx-auto px-4 py-10">
       <h2 className="text-2xl font-bold text-[#00A97E] mb-6">My Joined Challenges</h2>
-      {challenges.length === 0 ? (
+
+   {summary && (
+  <div className="mb-8 p-4 bg-base-100 border border-[#00A97E] rounded-md shadow-sm">
+    <h3 className="text-lg font-semibold text-[#00A97E] mb-2">Your Challenge Summary</h3>
+    <ul className="text-sm space-y-1">
+      <li><strong>Total Challenges:</strong> {summary.totalChallenges}</li>
+      <li><strong>Joined:</strong> {summary.totalJoined}</li>
+      <li><strong>Ongoing:</strong> {summary.ongoing}</li>
+      <li><strong>Finished:</strong> {summary.finished}</li>
+      <li><strong>Not Started:</strong> {summary.notStarted}</li>
+      <li><strong>Average Progress:</strong> {summary.averageProgress}%</li>
+    </ul>
+  </div>
+)}
+
+      {activities.length === 0 ? (
         <p className="text-gray-500">You haven't joined any challenges yet.</p>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {challenges.map((challenge) => (
+          {activities.map((challenge) => (
             <div key={challenge._id} className="card bg-base-100 shadow-sm border border-[#00A97E] rounded-md">
               <figure className="h-32 overflow-hidden">
                 <img src={challenge.imageUrl} alt={challenge.title} className="w-full h-full object-cover" />
@@ -52,9 +86,11 @@ const MyActivities = () => {
                 <div className="mt-2 text-xs space-y-1">
                   <p><strong>Duration:</strong> {challenge.duration} days</p>
                   <p><strong>Goal:</strong> {challenge.target}</p>
+                  <p><strong>Status:</strong> {challenge.status}</p>
+                  <p><strong>Progress:</strong> {challenge.progress}%</p>
                 </div>
                 <div className="mt-3">
-                 <Link to={`/challengedetails/${challenge._id}`} className="btn btn-primary">View Details</Link>
+                  <Link to={`/challengedetails/${challenge._id}`} className="btn btn-primary">View Details</Link>
                 </div>
               </div>
             </div>

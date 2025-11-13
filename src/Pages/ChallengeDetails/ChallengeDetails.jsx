@@ -9,7 +9,7 @@ import {
 } from 'react-icons/fa';
 import useAuth from '../../Hooks/useAuth';
 import useAxios from '../../Hooks/useAxios';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 
 const ChallengeDetails = () => {
   const challenge = useLoaderData();
@@ -33,6 +33,8 @@ const ChallengeDetails = () => {
   const [joined, setJoined] = useState(false);
   const [dbUserId, setDbUserId] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [status, setStatus] = useState('');
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     const fetchJoinStatus = async () => {
@@ -41,10 +43,21 @@ const ChallengeDetails = () => {
         const dbUser = userRes.data;
         setDbUserId(dbUser._id);
 
-        const res = await axios.get(
+        const statusRes = await axios.get(
           `/userChallenges/check-status?userId=${dbUser._id}&challengeId=${challengeId}`
         );
-        setJoined(res.data.joined);
+        setJoined(statusRes.data.joined);
+
+        if (statusRes.data.joined) {
+          const joinedData = await axios.get(`/userChallenges`);
+          const match = joinedData.data.find(
+            (j) => j.userId === dbUser._id && j.challengeId === challengeId
+          );
+          if (match) {
+            setStatus(match.status);
+            setProgress(match.progress);
+          }
+        }
       } catch (error) {
         console.error('Error checking join status:', error);
       } finally {
@@ -63,10 +76,14 @@ const ChallengeDetails = () => {
         userId: dbUserId,
         challengeId,
         joinedAt: new Date().toISOString(),
+        status: 'ongoing',
+        progress: 0,
       };
 
       await axios.post('/userChallenges', joinedChallenge);
       setJoined(true);
+      setStatus('ongoing');
+      setProgress(0);
       toast.success('Challenge joined successfully!');
     } catch (error) {
       console.error('Error joining challenge:', error);
@@ -80,10 +97,29 @@ const ChallengeDetails = () => {
         `/userChallenges?userId=${dbUserId}&challengeId=${challengeId}`
       );
       setJoined(false);
+      setStatus('');
+      setProgress(0);
       toast.success('Challenge removed successfully!');
     } catch (error) {
       console.error('Error removing challenge:', error);
       toast.error('Failed to remove challenge.');
+    }
+  };
+
+  const markAsFinished = async () => {
+    try {
+      await axios.patch('/userChallenges/update', {
+        userId: dbUserId,
+        challengeId,
+        status: 'finished',
+        progress: 100,
+      });
+      setStatus('finished');
+      setProgress(100);
+      toast.success('Challenge marked as finished!');
+    } catch (error) {
+      console.error('Error updating challenge:', error);
+      toast.error('Failed to update challenge.');
     }
   };
 
@@ -140,6 +176,25 @@ const ChallengeDetails = () => {
             </div>
           </div>
 
+          {joined && (
+            <div className="mt-4 space-y-2">
+              <p className="text-sm">
+                Status: <strong>{status}</strong>
+              </p>
+              <p className="text-sm">
+                Progress: <strong>{progress}%</strong>
+              </p>
+              {status !== 'finished' && (
+                <button
+                  className="btn btn-sm btn-info"
+                  onClick={markAsFinished}
+                >
+                  Mark as Finished
+                </button>
+              )}
+            </div>
+          )}
+
           <div className="card-actions mt-4">
             {joined ? (
               <button
@@ -159,6 +214,7 @@ const ChallengeDetails = () => {
           </div>
         </div>
       </div>
+       <ToastContainer position="top-center" />
     </div>
   );
 };
