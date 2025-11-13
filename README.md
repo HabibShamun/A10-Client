@@ -1,16 +1,17 @@
-# React + Vite
+Website: EcoTrack — Sustainable Living Platform
+Live URL: 
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+EcoTrack is a community-driven platform that empowers individuals to adopt eco-friendly habits through interactive challenges, tips, and events.
 
-Currently, two official plugins are available:
+Key Features:
+Interactive Challenges: Users can join, track, and complete sustainability challenges with personal progress tracking.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Live Statistics Dashboard: Real-time metrics on community impact — CO₂ saved, plastic reduced, and active members.
 
-## React Compiler
+Eco Tips Feed: Curated tips to help users make smarter, greener lifestyle choices.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Upcoming Events: Discover and participate in local or global environmental events.
 
-## Expanding the ESLint configuration
+How It Works Guide: A friendly walkthrough for new users to understand the platform and get started.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Secure Auth System: Email/password and Google sign-in with user profile management.
