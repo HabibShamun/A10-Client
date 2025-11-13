@@ -1,5 +1,5 @@
 Website: EcoTrack — Sustainable Living Platform
-Live URL: 
+Live URL: https://sage-muffin-6fb2f1.netlify.app/
 
 EcoTrack is a community-driven platform that empowers individuals to adopt eco-friendly habits through interactive challenges, tips, and events.
 
