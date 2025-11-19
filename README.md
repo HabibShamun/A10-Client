@@ -42,20 +42,20 @@ Main dependencies used in this project:
 
 ## Installation
 Follow these steps to run EcoTrack on your local machine:
-- Clone the repository
+- Clone the repository:
 git clone git@github.com:HabibShamun/A10-Client.git
 cd ecotrack
-- Install dependencies
+- Install dependencies:
 npm install
-- Set up environment variables
+- Set up environment variables:
 Create a .env file in the root directory and add:
-MONGO_URI=your_mongodb_connection_string
+MONGO_URI=your_mongodb_connection_string,
 FIREBASE_API_KEY=your_firebase_api_key
-- Run the backend server
+- Run the backend server:
 npm run server
-- Run the frontend
+- Run the frontend:
 npm start
-- Open in browser
+- Open in browser:
 Visit http://localhost:3000
 
 
